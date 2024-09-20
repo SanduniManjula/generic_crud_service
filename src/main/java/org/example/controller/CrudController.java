@@ -48,7 +48,12 @@ public abstract class CrudController<T, ID> {
     }
 
     @GetMapping("/search")
-    public Page<T> search(@RequestParam String fieldName, @RequestParam String value, Pageable pageable) {
-        return service.searchByField(fieldName, value, pageable);
+    public Page<T> search(
+            @RequestParam String fieldName,
+            @RequestParam String value,
+            @RequestParam(required = false, defaultValue = "id") String sortBy,
+            @RequestParam(required = false, defaultValue = "asc") String sortDirection,
+            Pageable pageable) {
+        return service.searchByFieldWithSorting(fieldName, value, sortBy, sortDirection, pageable);
     }
 }

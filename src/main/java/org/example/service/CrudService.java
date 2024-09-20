@@ -16,4 +16,7 @@ public interface CrudService<T, ID> {
     Page<T> findAll(Pageable pageable);
 
     Page<T> searchByField(String fieldName, String value, Pageable pageable);
+
+    Page<T> searchByFieldWithSorting(String fieldName, String value, String sortBy, String sortDirection, Pageable pageable);
+
 }

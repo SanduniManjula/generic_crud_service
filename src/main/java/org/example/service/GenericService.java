@@ -4,7 +4,9 @@ import org.example.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -58,5 +60,15 @@ public class GenericService<T, ID> implements CrudService<T, ID> {
             return predicate;
         };
         return repository.findAll(specification, pageable);
+    }
+
+    @Override
+    public Page<T> searchByFieldWithSorting(String fieldName, String value, String sortBy, String sortDirection, Pageable pageable) {
+        Sort sort = Sort.by(sortBy);
+        sort = sortDirection.equalsIgnoreCase("desc") ? sort.descending() : sort.ascending();
+
+        Pageable sortedPageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+
+        return searchByField(fieldName, value, sortedPageable);
     }
 }
