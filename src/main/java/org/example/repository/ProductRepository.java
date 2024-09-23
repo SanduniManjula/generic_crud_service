@@ -8,3 +8,4 @@ import org.springframework.stereotype.Repository;
 @Qualifier("productRepository")
 public interface ProductRepository extends GenericRepository<Product, Long> {
 }
+

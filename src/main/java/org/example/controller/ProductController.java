@@ -11,5 +11,6 @@ public class ProductController extends CrudController<Product, Long> {
 
     public ProductController(CrudService<Product, Long> service) {
         super(service);
+
     }
 }
